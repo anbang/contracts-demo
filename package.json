@@ -7,7 +7,7 @@
     "compile": "npx hardhat compile",
     "deploy": "npx hardhat run scripts/deploy.ts",
     "deploy:ropsten": "npx hardhat run scripts/deploy.ts --network ropsten",
-    "test": "npx hardhat test"
+    "test": "npm run compile && npx hardhat test test/index.ts"
   },
   "repository": {
     "type": "git",
