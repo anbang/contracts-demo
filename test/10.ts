@@ -1,4 +1,4 @@
-import { expect } from "chai";
+// import { expect } from "chai";
 import { ethers } from "hardhat";
 
 describe("测试", function () {
@@ -17,5 +17,10 @@ describe("测试", function () {
     console.log("4=>", await greeter.main4());
     console.log("5=>", await greeter.main5(0));
     console.log("5=>", await greeter.main5(1));
+
+    console.log(
+      "insertionSortWrong=>",
+      await greeter.insertionSortWrong([2, 5, 3, 1])
+    );
   });
 });
