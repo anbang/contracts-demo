@@ -1,80 +1,32 @@
-//SPDX-License-Identifier: Unlicense
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
-import "hardhat/console.sol";
 
-contract Yeye {
-    event Log(string msg);
-
-    function hip() public virtual {
-        emit Log("Yeye");
-    }
-
-    function pop() public virtual {
-        emit Log("Yeye");
-    }
-
-    function yeye() public virtual {
-        emit Log("Yeye");
-    }
+abstract contract InsertionSort{
+    function insertionSort(uint[] memory a) public pure virtual returns(uint[] memory);
 }
 
-contract Baba is Yeye {
-    function hip() public virtual override {
-        emit Log("Baba");
-        super.hip();
-        Yeye.hip();
-    }
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/contracts/utils/introspection/IERC165.sol";
 
-    function pop() public virtual override {
-        emit Log("Baba");
-    }
+interface IERC721 is IERC165 {
+    event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);
+    event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId);
+    event ApprovalForAll(address indexed owner, address indexed operator, bool approved);
+    
+    function balanceOf(address owner) external view returns (uint256 balance);
 
-    function baba() public virtual {
-        emit Log("Baba");
-    }
-}
+    function ownerOf(uint256 tokenId) external view returns (address owner);
 
-contract Erzi is Yeye, Baba {
-    function hip() public override(Yeye, Baba) {
-        emit Log("Erzi");
-    }
+    function safeTransferFrom(address from, address to, uint256 tokenId) external;
 
-    function pop() public override(Yeye, Baba) {
-        emit Log("Erzi");
-    }
+    function transferFrom(address from, address to, uint256 tokenId) external;
 
-    function erzi() public virtual {
-        emit Log("Erzi");
-    }
-}
+    function approve(address to, uint256 tokenId) external;
 
-//  修饰器继承
+    function getApproved(uint256 tokenId) external view returns (address operator);
 
-contract Main1 {
-    modifier mainModifier(uint256 _a) virtual {
-        require(_a % 2 == 0 && _a % 3 == 0);
-        _;
-    }
-}
+    function setApprovalForAll(address operator, bool _approved) external;
 
-contract Main2 is Main1 {
-    function main(uint256 _dividend)
-        public
-        pure
-        mainModifier(_dividend)
-        returns (uint256, uint256)
-    {
-        return handler(_dividend);
-    }
+    function isApprovedForAll(address owner, address operator) external view returns (bool);
 
-    function handler(uint256 _dividend) public pure returns (uint256, uint256) {
-        uint256 div2 = _dividend / 2;
-        uint256 div3 = _dividend / 3;
-        return (div2, div3);
-    }
-
-    modifier mainModifier(uint256 _a) override {
-        require(_a % 2 == 0);
-        _;
-    }
+    function safeTransferFrom( address from, address to, uint256 tokenId, bytes calldata data) external;
 }
